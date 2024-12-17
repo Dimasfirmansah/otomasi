@@ -98,8 +98,8 @@ echo "Mengaktifkan IP forwarding dan mengonfigurasi IPTables..."
 sudo sysctl -w net.ipv4.ip_forward=1
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-sudo iptables -A OUTPUT -p tcp --dport 30002 -j ACCEPT
-sudo iptables -A OUTPUT -p tcp --dport 30004 -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 30014 -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 30015 -j ACCEPT
 
 echo "Restart DHCP Server..."
 sudo systemctl restart isc-dhcp-server
