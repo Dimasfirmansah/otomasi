@@ -34,10 +34,10 @@ sudo apt update
 sudo apt install isc-dhcp-server -y
 sudo apt install expect -y
 sudo DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
-sudo ufw allow 30002/tcp
-sudo ufw allow 30004/tcp
-sudo ufw allow from 192.168.74.137 to any port 30002
-sudo ufw allow from 192.168.74.137 to any port 30004
+sudo ufw allow 30014/tcp
+sudo ufw allow 30015/tcp
+sudo ufw allow from 192.168.42.128 to any port 30014
+sudo ufw allow from 192.168.42.128 to any port 30015
 sudo ufw reload
 
 # Konfigurasi Pada Netplan
@@ -73,11 +73,7 @@ subnet 192.168.17.0 netmask 255.255.255.0 {
     max-lease-time 7200;
 }
 
-# Konfigurasi Fix DHCP
-host fantasia {
-  hardware ethernet 00:50:79:66:68:06;
-  fixed-address 192.168.17.10;
-}
+
 EOL
 
 echo -e "${GREEN}██   ██  █████  ██   ██ ██      ██ ██     ████████ ███████  █████  ███    ███ ${NC}"
@@ -109,6 +105,7 @@ sudo iptables -A OUTPUT -p tcp --dport 30004 -j ACCEPT
 
 echo "Restart DHCP Server..."
 sudo systemctl restart isc-dhcp-server
+sudo /etc/init.d/isc-dhcp-server restart
 
 sudo ip route add 192.168.200.0/24 via 192.168.17.2
 
