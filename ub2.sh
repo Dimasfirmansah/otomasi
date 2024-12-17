@@ -72,8 +72,6 @@ subnet 192.168.17.0 netmask 255.255.255.0 {
     default-lease-time 600;
     max-lease-time 7200;
 }
-
-
 EOL
 
 echo -e "${GREEN}██   ██  █████  ██   ██ ██      ██ ██     ████████ ███████  █████  ███    ███ ${NC}"
@@ -105,9 +103,12 @@ sudo iptables -A OUTPUT -p tcp --dport 30004 -j ACCEPT
 
 echo "Restart DHCP Server..."
 sudo systemctl restart isc-dhcp-server
-sudo /etc/init.d/isc-dhcp-server restart
 
 sudo ip route add 192.168.200.0/24 via 192.168.17.2
+
+# Restart ulang layanan DHCP
+echo "Memastikan DHCP Server restart ulang..."
+sudo /etc/init.d/isc-dhcp-server restart
 
 echo "Konfigurasi Ubuntu Selesai"
 
